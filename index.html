@@ -4,13 +4,62 @@
 
 <head>
     <meta charset="utf-8">
-    <script src="node_modules/webcomponentsjs/full.js"></script>
-    <link rel="import" href="template.html">
+    <link href="https://polygit.org/components/polymer/polymer.html" rel="import">
 </head>
 
 <body>
-    <h1>Hello world</h1>
-    <exchange-rate base="ISL" to="CHF" />
+    <dom-module id="exchange-rate">
+        <template>
+            <div>
+                <input value="{{amount::input}}" /> [[base]] = [[rate]]
+                <select value="{{to::input}}">
+        <option>RUB</option>
+        <option>CHF</option>
+        <option>USD</option>        
+      </select>
+            </div>
+        </template>
+        <script>
+    Polymer({
+      is: 'exchange-rate',
+      properties: {
+        base: {
+          type: 'String',
+          value: 'ILS'
+        },
+        to: {
+          type: 'String',
+          value: 'CHF',
+          observer: '_toChanged'
+        },
+        rate: 'String',
+        amount: {
+          type: 'String',
+          value: '1'
+        }
+      },
+      
+      _toChanged: function(newVal, oldVal) {
+        this.update()
+      },
+      
+      update: function() {
+        fetch(`http://api.fixer.io/latest?symbols=${this.to}&base=${this.base}`)
+        .then(r => r.json())
+        .then(response => {
+          this.rate = parseFloat(this.amount) * response.rates[this.to]
+        }) 
+      },
+
+      ready: function() {
+        this.update()
+      }
+    })
+  </script>
+    </dom-module>
+
+    <exchange-rate />
+
 </body>
 
 </html>
