@@ -1,0 +1,33 @@
+<link href="http://polygit.org/polymer+:1.x/components/polymer/polymer.html" rel="import">
+
+<dom-module id="hello-world">
+  <template>
+    <style>
+      h1 { color: red; }
+    </style>
+    <template is="dom-if" if="[[name]]">
+      <h1>Hello, [[name]]</h1>
+      <input value="{{name::input}}">
+    </template>       
+  </template>
+  <script>
+    Polymer({
+      is: 'hello-world',
+      properties: {
+        name: {
+          type: 'String',
+          value: 'Alice'
+        }
+      },
+      
+      ready: function() {
+        this.$.funtimes.addEventListener('click', () => {
+          this.push('people', 'Cecile')
+        })
+      }
+    })
+  </script>
+</dom-module>
+
+<h1>YOLO</h1>
+<hello-world />

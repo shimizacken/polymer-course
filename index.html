@@ -30,16 +30,17 @@
         to: {
           type: 'String',
           value: 'CHF',
-          observer: '_toChanged'
+          observer: '_recalc'
         },
         rate: 'String',
         amount: {
           type: 'String',
-          value: '1'
+          value: '1',
+          observer: '_recalc'
         }
       },
       
-      _toChanged: function(newVal, oldVal) {
+      _recalc: function(newVal, oldVal) {
         this.update()
       },
       
