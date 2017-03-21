@@ -1,0 +1,43 @@
+<script>
+
+// http://codepen.io/AVGP/pen/MpQMYp?editors=1010
+
+class ExchangeRate extends HTMLElement {
+  constructor() { super() }
+  
+  get base() {
+    return this.getAttribute('base');
+  }
+  
+  set base(value) {
+    this.setAttribute('base', value && value.toUpperCase());
+    this.update();
+  }
+  
+  get to() {
+    return this.getAttribute('to');
+  }
+  
+  set to(value) {
+    this.setAttribute('to', value && value.toUpperCase());
+    this.update();
+  }
+  
+  update() {
+    fetch("http://api.fixer.io/latest?symbols=" + this.to + "&base=" + this.base)
+    .then(r => r.json())
+    .then(response => {
+      this.textContent = "1 " + this.base + "=" + response.rates[this.to] + this.to;
+    }) 
+  }
+  
+  connectedCallback() {
+    this.to = this.getAttribute('to');
+    this.base = this.getAttribute('base');
+    this.update();
+  }
+}
+
+customElements.define('exchange-rate', ExchangeRate);
+
+</script>

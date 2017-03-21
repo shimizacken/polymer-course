@@ -1,0 +1,23 @@
+{
+  "name": "polymer-course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shimizacken/polymer-course.git"
+  },
+  "keywords": [],
+  "author": "Shimi Zacken",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shimizacken/polymer-course/issues"
+  },
+  "homepage": "https://github.com/shimizacken/polymer-course",
+  "dependencies": {
+    "webcomponentsjs": "^1.0.2"
+  }
+}
